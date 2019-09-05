@@ -184,7 +184,7 @@ public class OSMXMLWriter {
 	}
 
 	private void writeRelationMember(RelationMember rm) throws XMLStreamException {
-		out.writeStartElement("relation");
+		out.writeStartElement("member");
 		
 		out.writeAttribute("type", rm.type.name().toLowerCase());
 		out.writeAttribute("ref", String.valueOf(rm.ref));

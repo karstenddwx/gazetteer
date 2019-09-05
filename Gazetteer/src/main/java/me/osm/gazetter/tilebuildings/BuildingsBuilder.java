@@ -44,7 +44,7 @@ public class BuildingsBuilder extends ABuilder {
 	private BinaryIndex node2relation;
 	private BinaryIndex node2way;
 	
-	private static final Accessor w2rRelAccessor = Accessors.longAccessor(0);
+	private static final Accessor w2rRelAccessor = Accessors.longAccessor(8);
 	private static final Accessor n2wNodeAccessor = Accessors.longAccessor(0);
 	private static final Accessor n2rNodeAccessor = Accessors.longAccessor(0);
 	
@@ -112,7 +112,7 @@ public class BuildingsBuilder extends ABuilder {
 		
 		ri = way2relation.find(rel.id, w2rRelAccessor, IndexLineAccessMode.UNLINKED);
 		if (ri >= 0) {
-			List<ByteBuffer> wayBB = node2relation.findAll(
+			List<ByteBuffer> wayBB = way2relation.findAll(
 					ri, rel.id, w2rRelAccessor, IndexLineAccessMode.UNLINKED);
 			for (ByteBuffer wbb : wayBB) {
 				long wayId = wbb.getLong(0);
@@ -219,7 +219,7 @@ public class BuildingsBuilder extends ABuilder {
 		if(line.isClosed() && isApplicable(line.tags)) {
 			indexLine(line);
 		}
-		else if (way2relation.find(line.id, w2rRelAccessor, IndexLineAccessMode.IGNORE) >= 0) {
+		else if (way2relation.find(line.id, w2rLineAccessor, IndexLineAccessMode.IGNORE) >= 0) {
 			indexLine(line);
 		}
 	}
